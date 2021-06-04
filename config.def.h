@@ -409,21 +409,28 @@ static const Rule rules[] = {
 	 *	WM_WINDOW_ROLE(STRING) = role
 	 *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
 	 */
-	RULE(.wintype = WTYPE "DIALOG", .isfloating = 1)
+	RULE(.wintype = WTYPE "DIALOG",  .isfloating = 1)
 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
-	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
+	RULE(.wintype = WTYPE "SPLASH",  .isfloating = 1)
+	
 	#if SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
 	#endif // SCRATCHPADS_PATCH
-	
+
+	RULE(.class = "VSCodium", .tags = 1 << 0)
+	RULE(.class = "firefox",  .tags = 1 << 1)
+	RULE(.class = "discord",  .tags = 1 << 2)
+	RULE(.class = "Slack",    .tags = 1 << 2)
+	RULE(.class = "Steam",    .tags = 1 << 3, .isfloating = 1)
+
 	/* class      					instance    title       tags mask		isfloating  	monitor */
-	{ "Firefox",  					NULL,       NULL,       1 << 1,       	0,           	0 },
+	/* { "Firefox",  					NULL,       NULL,       1 << 1,       	0,           	0 },
 	{ "Microsoft Teams - Preview", 	NULL, 		NULL, 		1 << 2,  		0,           	0 },
 	{ "discord", 					NULL, 		NULL, 		1 << 2,  		0,           	0 },
-	{ "Slack", 						NULL, 		NULL, 		1 << 2,  		0,           	0 },
-	{ "Steam", 						NULL, 		NULL, 		1 << 3,  		0,           	0 },
-	{ NULL, 						NULL, 		"Among Us", 1 << 3,  		1,           	0 },
+	{ "Slack", 						NULL, 		NULL, 		1 << 2,  		0,           	0 },*/
+/*	{ "Steam", 						NULL, 		NULL, 		1 << 3,  		0,           	0 },*/
+/*	{ NULL, 						NULL, 		"Among Us", 1 << 3,  		1,           	0 },*/
 };
 
 #if MONITOR_RULES_PATCH
