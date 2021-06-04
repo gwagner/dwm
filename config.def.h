@@ -424,13 +424,6 @@ static const Rule rules[] = {
 	RULE(.class = "Slack",    .tags = 1 << 2)
 	RULE(.class = "Steam",    .tags = 1 << 3, .isfloating = 1)
 
-	/* class      					instance    title       tags mask		isfloating  	monitor */
-	/* { "Firefox",  					NULL,       NULL,       1 << 1,       	0,           	0 },
-	{ "Microsoft Teams - Preview", 	NULL, 		NULL, 		1 << 2,  		0,           	0 },
-	{ "discord", 					NULL, 		NULL, 		1 << 2,  		0,           	0 },
-	{ "Slack", 						NULL, 		NULL, 		1 << 2,  		0,           	0 },*/
-/*	{ "Steam", 						NULL, 		NULL, 		1 << 3,  		0,           	0 },*/
-/*	{ NULL, 						NULL, 		"Among Us", 1 << 3,  		1,           	0 },*/
 };
 
 #if MONITOR_RULES_PATCH
