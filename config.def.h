@@ -366,8 +366,6 @@ static Sp scratchpads[] = {
  */
 static char *tagicons[][NUMTAGS] = {
 	[DEFAULT_TAGS]        = { "", "", "﬐", "戮" },
-	[ALTERNATIVE_TAGS]    = { "", "", "﬐", "戮" },
-	[ALT_TAGS_DECORATION] = { "", "", "﬐", "戮" },
 };
 
 #if BAR_TAGGRID_PATCH
@@ -418,14 +416,14 @@ static const Rule rules[] = {
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
 	#endif // SCRATCHPADS_PATCH
 
-	RULE(.class = "VSCodium", 	.tags = 1 << 0)
-	RULE(.class = "firefox",  	.tags = 1 << 1)
-	RULE(.class = "firefox", 	.instance = "Toolkit",   .title = "Picture-in-Picture", .tags = 0, .isfloating = 1, .issticky = 1)
-	// RULE(.class = "Alacritty", 	.instance = "Alacritty", .tags = 0, .isterminal = 1)
-	RULE(.class = "mpv",     	.instance = "gl",        .tags = 0, .isfloating = 1, .issticky = 1)
-	RULE(.class = "discord",  	.tags = 1 << 2)
-	RULE(.class = "Slack",    	.tags = 1 << 2)
-	RULE(.class = "Steam",    	.tags = 1 << 3, .isfloating = 1)
+	RULE(.class = "VSCodium", 						.tags = 1 << 0)
+	RULE(.class = "firefox",  						.tags = 1 << 1)
+	RULE(.class = "firefox", 						.instance = "Toolkit",   .title = "Picture-in-Picture", .tags = 0, .isfloating = 1, .issticky = 1)
+	RULE(.class = "mpv",     						.instance = "gl",        .tags = 0, .isfloating = 1, .issticky = 1)
+	RULE(.class = "Microsoft Teams - Preview",  	.tags = 1 << 2)
+	RULE(.class = "discord",  						.tags = 1 << 2)
+	RULE(.class = "Slack",    						.tags = 1 << 2)
+	RULE(.class = "Steam",    						.tags = 1 << 3, .isfloating = 1)
 
 };
 
@@ -433,8 +431,9 @@ static const Rule rules[] = {
 #if PERTAG_PATCH
 static const MonitorRule monrules[] = {
 	/* monitor  tag   layout  mfact  nmaster  showbar  topbar */
-	{  1,       -1,   2,      -1,    -1,      -1,      -1     }, // use a different layout for the second monitor
-	{  -1,      -1,   0,      -1,    -1,      -1,      -1     }, // default
+	{   -1,      0,    0,      .7,    -1,      -1,      -1     }, 
+	{   -1,      2,    0,      .7,    -1,      -1,      -1     },
+	{   -1,      -1,   -1,     -1,    -1,      -1,      -1     },
 };
 #else
 static const MonitorRule monrules[] = {
@@ -789,10 +788,7 @@ static const char *dmenucmd[] = {
 	NULL
 };
 static const char *termcmd[]  = { "alacritty", NULL };
-
 static const char *firefox[]  = { "firefox", "-P", "default", NULL };
-static const char *lockScreen[] = { "gnome-screensaver-command", "-l", NULL };
-static const char *screenShot[] = { "gnome-screenshot", "-i", NULL};
 
 #if BAR_STATUSCMD_PATCH
 #if BAR_DWMBLOCKS_PATCH
@@ -824,8 +820,7 @@ static Key keys[] = {
 	*********************************************************************************/
 	/* modifier                     key        	function        argument */
 	{ MODKEY|ShiftMask, 			XK_f,		spawn,			{.v = firefox} },
-	{ MODKEY|Mod1Mask,			XK_l,		spawn,			{.v = lockScreen} },
-	{ NULL,					PrintScreenDWM, spawn,			{.v = screenShot} },
+
 
 	/********************************************************************************
 	*     Window Manager Keys
@@ -954,11 +949,11 @@ static Key keys[] = {
 	{ MODKEY|Mod4Mask,              XK_0,          togglegaps,             {0} },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,          defaultgaps,            {0} },
 	#endif // VANITYGAPS_PATCH
-	{ MODKEY,                       XK_Tab,        view,                   {0} },
-	#if SHIFTVIEW_PATCH
+	{ MODKEY,                       XK_Tab,        view,              	   { 0 } },
+	/*#if SHIFTVIEW_PATCH
 	{ MODKEY|ShiftMask,             XK_Tab,        shiftview,              { .i = -1 } },
 	{ MODKEY|ShiftMask,             XK_backslash,  shiftview,              { .i = +1 } },
-  	#endif // SHIFTVIEW_PATCH
+  	#endif // SHIFTVIEW_PATCH*/
   	#if SHIFTVIEW_CLIENTS_PATCH
 	{ MODKEY|Mod4Mask,              XK_Tab,        shiftviewclients,       { .i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_backslash,  shiftviewclients,       { .i = +1 } },
