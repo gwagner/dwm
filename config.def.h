@@ -17,9 +17,9 @@ static int nomodbuttons                  = 1;   /* allow client mouse button bin
 #if VANITYGAPS_PATCH
 static const unsigned int gappih         = 6;  /* horiz inner gap between windows */
 static const unsigned int gappiv         = 6;  /* vert inner gap between windows */
-static const unsigned int gappoh         = 2;  /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov         = 2;  /* vert outer gap between windows and screen edge */
-static const int smartgaps_fact          = 1;   /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer gaps */
+static const unsigned int gappoh         = 4;  /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov         = 4;  /* vert outer gap between windows and screen edge */
+static const int smartgaps_fact          = 3;   /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer gaps */
 #endif // VANITYGAPS_PATCH
 #if AUTOSTART_PATCH
 static const char autostartblocksh[]     = "autostart_blocking.sh";
@@ -418,11 +418,14 @@ static const Rule rules[] = {
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
 	#endif // SCRATCHPADS_PATCH
 
-	RULE(.class = "VSCodium", .tags = 1 << 0)
-	RULE(.class = "firefox",  .tags = 1 << 1)
-	RULE(.class = "discord",  .tags = 1 << 2)
-	RULE(.class = "Slack",    .tags = 1 << 2)
-	RULE(.class = "Steam",    .tags = 1 << 3, .isfloating = 1)
+	RULE(.class = "VSCodium", 	.tags = 1 << 0)
+	RULE(.class = "firefox",  	.tags = 1 << 1)
+	RULE(.class = "firefox", 	.instance = "Toolkit",   .title = "Picture-in-Picture", .tags = 0, .isfloating = 1, .issticky = 1)
+	// RULE(.class = "Alacritty", 	.instance = "Alacritty", .tags = 0, .isterminal = 1)
+	RULE(.class = "mpv",     	.instance = "gl",        .tags = 0, .isfloating = 1, .issticky = 1)
+	RULE(.class = "discord",  	.tags = 1 << 2)
+	RULE(.class = "Slack",    	.tags = 1 << 2)
+	RULE(.class = "Steam",    	.tags = 1 << 3, .isfloating = 1)
 
 };
 
@@ -1003,8 +1006,9 @@ static Key keys[] = {
 	{ MODKEY|Mod5Mask|Mod1Mask,     XK_Tab,        rotatelayoutaxis,       {.i = -4 } },   /* flextile, 4 = secondary stack axis */
 	{ MODKEY|ControlMask,           XK_Return,     mirrorlayout,           {0} },          /* flextile, flip master and stack areas */
 	#endif // FLEXTILE_DELUXE_LAYOUT
-	{ MODKEY,                       XK_space,      setlayout,              {0} },
-	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
+	/*{ MODKEY,                       XK_space,      setlayout,              {0} },
+	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },*/
+	{ MODKEY,           			XK_space,      cyclelayout,            {.i = +1 } },
 	#if MAXIMIZE_PATCH
 	{ MODKEY|ControlMask|ShiftMask, XK_h,          togglehorizontalmax,    {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_l,          togglehorizontalmax,    {0} },
@@ -1052,9 +1056,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,      tagmon,                 {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,     tagmon,                 {.i = +1 } },
 	#if FOCUSADJACENTTAG_PATCH
-	{ MODKEY,                       XK_Left,       viewtoleft,             {0} }, // note keybinding conflict with focusdir
+	/*{ MODKEY,                       XK_Left,       viewtoleft,             {0} }, // note keybinding conflict with focusdir
 	{ MODKEY,                       XK_Right,      viewtoright,            {0} }, // note keybinding conflict with focusdir
-	/*{ MODKEY|ShiftMask,             XK_Left,       tagtoleft,              {0} },
+	{ MODKEY|ShiftMask,             XK_Left,       tagtoleft,              {0} },
 	{ MODKEY|ShiftMask,             XK_Right,      tagtoright,             {0} },*/
 	{ MODKEY|ControlMask,           XK_Left,       tagandviewtoleft,       {0} },
 	{ MODKEY|ControlMask,           XK_Right,      tagandviewtoright,      {0} },

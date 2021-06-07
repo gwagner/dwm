@@ -520,6 +520,9 @@ typedef struct {
 	#if XKB_PATCH
 	int xkb_layout;
 	#endif // XKB_PATCH
+	#if STICKY_PATCH
+	int issticky;
+	#endif // STICKY_PATCH
 } Rule;
 
 #if XKB_PATCH
@@ -841,6 +844,9 @@ applyrules(Client *c)
 		&& (!r->instance || strstr(instance, r->instance))
 		&& (!r->wintype || wintype == XInternAtom(dpy, r->wintype, False)))
 		{
+			#if STICKY_PATCH
+			c->issticky = r->issticky;
+			#endif // STICKY_PATCH
 			#if CENTER_PATCH
 			c->iscentered = r->iscentered;
 			#endif // CENTER_PATCH
