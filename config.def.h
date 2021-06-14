@@ -2,7 +2,7 @@
 
 /* appearance */
 #if ROUNDED_CORNERS_PATCH
-static const unsigned int borderpx       = 0;   /* border pixel of windows */
+static const unsigned int borderpx       = 1;   /* border pixel of windows */
 static const int corner_radius           = 3;
 #else
 static const unsigned int borderpx       = 1;   /* border pixel of windows */
@@ -19,7 +19,7 @@ static const unsigned int gappih         = 6;  /* horiz inner gap between window
 static const unsigned int gappiv         = 6;  /* vert inner gap between windows */
 static const unsigned int gappoh         = 4;  /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov         = 4;  /* vert outer gap between windows and screen edge */
-static const int smartgaps_fact          = 3;   /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer gaps */
+static const int smartgaps_fact          = 1;   /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer gaps */
 #endif // VANITYGAPS_PATCH
 #if AUTOSTART_PATCH
 static const char autostartblocksh[]     = "autostart_blocking.sh";
@@ -30,7 +30,7 @@ static const char localshare[]           = ".local/share";
 #if BAR_ANYBAR_PATCH
 static const int usealtbar               = 1;        /* 1 means use non-dwm status bar */
 static const char *altbarclass           = "Polybar"; /* Alternate bar class name */
-static const char *altbarcmd             = "$HOME/bar.sh"; /* Alternate bar launch command */
+static const char *altbarcmd             = "$HOME/polybar.sh"; /* Alternate bar launch command */
 #endif // BAR_ANYBAR_PATCH
 #if BAR_HOLDBAR_PATCH
 static const int showbar                 = 0;   /* 0 means no bar */
@@ -47,11 +47,11 @@ static const int showtab                 = showtab_auto;        /* Default tab b
 static const int toptab                  = False;               /* False means bottom tab bar */
 #endif // TAB_PATCH
 #if BAR_HEIGHT_PATCH
-static const int bar_height              = 0;   /* 0 means derive from font, >= 1 explicit height */
+static const int bar_height              = 30;   /* 0 means derive from font, >= 1 explicit height */
 #endif // BAR_HEIGHT_PATCH
 #if BAR_PADDING_PATCH
-static const int vertpad                 = 10;  /* vertical padding of bar */
-static const int sidepad                 = 10;  /* horizontal padding of bar */
+static const int vertpad                 = 4;  /* vertical padding of bar */
+static const int sidepad                 = 4;  /* horizontal padding of bar */
 #endif // BAR_PADDING_PATCH
 #if FOCUSONCLICK_PATCH
 static const int focusonwheel            = 0;
@@ -365,7 +365,8 @@ static Sp scratchpads[] = {
  * them. This works seamlessly with alternative tags and alttagsdecoration patches.
  */
 static char *tagicons[][NUMTAGS] = {
-	[DEFAULT_TAGS]        = { "", "", "﬐", "戮" },
+	//[DEFAULT_TAGS]        = { "", "", "3", "" },
+	[DEFAULT_TAGS]        = {"", "", "聆", "", ""},
 };
 
 #if BAR_TAGGRID_PATCH
@@ -416,15 +417,15 @@ static const Rule rules[] = {
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
 	#endif // SCRATCHPADS_PATCH
 
-	RULE(.class = "VSCodium", 						.tags = 1 << 0)
-	RULE(.class = "firefox",  						.tags = 1 << 1)
-	RULE(.class = "firefox", 						.instance = "Toolkit",   .title = "Picture-in-Picture", .tags = 0, .isfloating = 1, .issticky = 1)
-	RULE(.class = "mpv",     						.instance = "gl",        .tags = 0, .isfloating = 1, .issticky = 1)
-	RULE(.class = "Microsoft Teams - Preview",  	.tags = 1 << 2)
-	RULE(.class = "discord",  						.tags = 1 << 2)
-	RULE(.class = "Slack",    						.tags = 1 << 2)
-	RULE(.class = "Steam",    						.tags = 1 << 3, .isfloating = 1)
-
+	RULE(.class = "VSCodium", 																					.tags = 1 << 0)
+	RULE(.class = "firefox",  																					.tags = 1 << 1)
+	RULE(.class = "firefox", 						.instance = "Toolkit",   	.title = "Picture-in-Picture", 	.tags = 0, 			.isfloating = 1, 	.issticky = 1 )
+	RULE(.class = "mpv",     						.instance = "gl",        									.tags = 0, 			.isfloating = 1, 	.issticky = 1 )
+	RULE(.class = "Microsoft Teams - Preview",  																.tags = 1 << 2)
+	RULE(.class = "discord",  																					.tags = 1 << 2)
+	RULE(.class = "Slack",    																					.tags = 1 << 2)
+	RULE(.class = "Steam",    																					.tags = 1 << 3, 	.isfloating = 1)
+	RULE(.class = "Virt-manager", 					.instance = "virt-manager", .title = "win10 on QEMU/KVM", 	.tags = 1 << 4 )
 };
 
 #if MONITOR_RULES_PATCH
@@ -465,8 +466,8 @@ static const Inset default_inset = {
  *    widthfunc, drawfunc, clickfunc - providing bar module width, draw and click functions
  *    name - does nothing, intended for visual clue and for logging / debugging
  */
-static const BarRule barrules[] = {
-	/* monitor  bar    alignment         widthfunc                drawfunc                clickfunc                name */
+static const BarRule barrules[] = { {}
+	/* monitor  bar    alignment         widthfunc                drawfunc                clickfunc                name 
 	#if BAR_STATUSBUTTON_PATCH
 	{ -1,       0,     BAR_ALIGN_LEFT,   width_stbutton,          draw_stbutton,          click_stbutton,          "statusbutton" },
 	#endif // BAR_STATUSBUTTON_PATCH
@@ -530,7 +531,7 @@ static const BarRule barrules[] = {
 	#if BAR_WINTITLE_FLOATING_PATCH
 	{ -1,       1,     BAR_ALIGN_LEFT,   width_wintitle_floating, draw_wintitle_floating, click_wintitle_floating, "wintitle_floating" },
 	#endif // BAR_WINTITLE_FLOATING_PATCH
-	#endif // BAR_FLEXWINTITLE_PATCH
+	#endif // BAR_FLEXWINTITLE_PATCH*/
 };
 
 /* layout(s) */
@@ -789,6 +790,8 @@ static const char *dmenucmd[] = {
 };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *firefox[]  = { "firefox", "-P", "default", NULL };
+static const char *rofi_run_cmd[]  = { "rofi", "-show", "run", NULL };
+static const char *rofi_win_cmd[]  = { "rofi", "-show", "window", NULL };
 
 #if BAR_STATUSCMD_PATCH
 #if BAR_DWMBLOCKS_PATCH
@@ -837,8 +840,9 @@ static Key keys[] = {
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
-	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
-	{ MODKEY,             			XK_Return,      spawn,                  {.v = termcmd } },
+	{ MODKEY,                       XK_p,          spawn,                  {.v = rofi_run_cmd } },
+	{ MODKEY|ShiftMask,             XK_p,          spawn,                  {.v = rofi_win_cmd } },
+	{ MODKEY,             			XK_Return,      spawn,                 {.v = termcmd } },
 	#if RIODRAW_PATCH
 	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
