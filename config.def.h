@@ -420,12 +420,15 @@ static const Rule rules[] = {
 	RULE(.class = "VSCodium", 																					.tags = 1 << 0)
 	RULE(.class = "firefox",  																					.tags = 1 << 1)
 	RULE(.class = "firefox", 						.instance = "Toolkit",   	.title = "Picture-in-Picture", 	.tags = 0, 			.isfloating = 1, 	.issticky = 1 )
+	//RULE(.class = "firefox", 						.instance = "Navigator",   	.title = "Picture-in-Picture", 	.tags = 0, 			.isfloating = 1, 	.issticky = 1 )
 	RULE(.class = "mpv",     						.instance = "gl",        									.tags = 0, 			.isfloating = 1, 	.issticky = 1 )
 	RULE(.class = "Microsoft Teams - Preview",  																.tags = 1 << 2)
 	RULE(.class = "discord",  																					.tags = 1 << 2)
 	RULE(.class = "Slack",    																					.tags = 1 << 2)
 	RULE(.class = "Steam",    																					.tags = 1 << 3, 	.isfloating = 1)
 	RULE(.class = "Virt-manager", 					.instance = "virt-manager", .title = "win10 on QEMU/KVM", 	.tags = 1 << 4 )
+	RULE(.class = "Virt-manager", 					.instance = "virt-manager", .title = "macOS on QEMU/KVM", 	.tags = 1 << 4 )
+	RULE(.class = "obs", 																					 	.tags = 1 << 4 )
 };
 
 #if MONITOR_RULES_PATCH
@@ -1052,8 +1055,8 @@ static Key keys[] = {
 	#endif // SCRATCHPAD_ALT_1_PATCH
 	{ MODKEY,                       XK_comma,      focusmon,               {.i = -1 } },
 	{ MODKEY,                       XK_period,     focusmon,               {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,      tagmon,                 {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period,     tagmon,                 {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_comma,      tagmon,                 {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_period,     tagmon,                 {.i = +1 } },
 	#if FOCUSADJACENTTAG_PATCH
 	/*{ MODKEY,                       XK_Left,       viewtoleft,             {0} }, // note keybinding conflict with focusdir
 	{ MODKEY,                       XK_Right,      viewtoright,            {0} }, // note keybinding conflict with focusdir
